@@ -1,0 +1,75 @@
+
+input.ng-invalid.ng-touched{
+    border-color: red;
+    border-width: 3px;
+    animation: changeColor 2s ease-in-out forwards infinite;
+}
+
+@keyframes changeColor{
+    0%{
+        border-color: red;
+    }
+    33%{
+        border-color: yellow;
+    }
+    66%{
+        border-color: orange;
+    }
+    100%{
+        border-color: red;
+    }
+}
+
+input.ng-valid.ng-touched{
+    border-color: lightgreen;
+    border-width: 2.5px;
+}
+
+div.form button:disabled{
+    cursor: no-drop;
+    background: rgba(0,0,0,0.3);
+    color: rgba(255,255,255,1);
+}
+
+span{
+    color: red;
+    font-weight: 700;
+    font-size: 18px
+}
+form{
+    text-align: center;
+}
+
+form label{
+    margin: 2.5% 0;
+    font-size: 20px;
+    font-weight: 500;
+    display: block;
+}
+
+form input[type="submit"]{
+    border:none;
+    border-radius: 3px;
+    padding: 1% 1.5%;
+    font-size: 18px;
+    font-weight: 500;
+    background:black;
+    color: white;
+    cursor: pointer;
+}
+
+form input[type="submit"]:disabled{
+    background:rgba(0,0,0,0.3);
+    cursor: no-drop;
+}
+
+form label i{
+    margin-left: 1%;
+    transform: rotate(0deg);
+    transition: 5s ease all;
+    cursor: pointer;
+}
+
+form label i:hover{
+    transform: rotate(1800deg);
+}

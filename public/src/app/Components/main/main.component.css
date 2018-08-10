@@ -1,0 +1,25 @@
+div.buttons{
+    text-align:center;
+    display:flex;
+    justify-content: space-evenly;
+    padding: 5% 5% 0;
+    margin-bottom: 5%;
+}
+
+div.buttons button{
+    padding: 2% 3%;
+    border:none;
+    border-radius: 5px;
+    font-size: 24px;
+    color: white;
+    font-weight: 900;
+    cursor: pointer;
+}
+
+div.buttons button.blue{
+    background-color: #008CBA;
+}
+
+div.buttons button.red{
+    background-color: #f44336;
+}

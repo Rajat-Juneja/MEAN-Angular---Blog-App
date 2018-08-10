@@ -1,0 +1,7 @@
+<div class="buttons">
+<button class="blue" (click)="alterFlag(true)">Login</button>
+<button class="red" (click)="alterFlag(false)">SignUp</button>
+</div>
+
+<app-login [hidden]="!flag"></app-login>
+<app-register [hidden]="flag"></app-register>

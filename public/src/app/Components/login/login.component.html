@@ -1,0 +1,21 @@
+<form [formGroup]="frm" novalidate (submit)="submitForm()">
+  <label>
+    Email-id: 
+    <input type="text" formControlName="email" placeholder="Enter your email id">
+    <div *ngIf="frm.get('email').touched && frm.get('email').errors">
+      <span *ngIf="frm.get('email').errors['required']">Please enter your Email</span>
+      <span *ngIf="!frm.get('email').errors['required'] && frm.get('email').errors['email']">Given email is invalid</span>
+      <span *ngIf="frm.get('email').invalid && !frm.get('email').errors['required'] && !frm.get('email').errors['email']">Given email is invalid</span>
+    </div>
+  </label>
+
+  <label>
+    Password: 
+    <input [type]="show?'text':'password'" formControlName="password" placeholder="Enter your password"> <i (mouseenter)="showPass(true)" (mouseleave)="showPass(false)" class="fa fa-eye" aria-hidden="true"></i>
+    <div *ngIf="frm.get('password').touched && frm.get('password').errors">
+      <span *ngIf="frm.get('password').errors['required']">Please enter your password</span>
+    </div>
+  </label>
+
+  <input type="submit" value="Submit" [disabled]="frm.invalid">
+</form>

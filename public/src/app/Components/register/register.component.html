@@ -1,0 +1,46 @@
+<form [formGroup]="frm" novalidate (submit)="submitForm()">
+  <label>
+    Full Name:
+    <input type="text" placeholder="Enter your full name" formControlName="name">
+    <div *ngIf="frm.get('name').errors && frm.get('name').touched">
+      <span *ngIf="frm.get('name').errors['required']">Please fill out your name</span>
+      <span *ngIf="!frm.get('name').errors['required'] && frm.get('name').errors['minlength']">Minimum length of name should be 3 characters</span>
+      <span *ngIf="!frm.get('name').errors['required'] && frm.get('name').errors['maxlength']">Maximum length of name should be 50 characters</span>
+      <span *ngIf="!frm.get('name').errors['required'] && !frm.get('name').errors['minlength'] && !frm.get('name').errors['maxlength'] && (frm.get('name').invalid || frm.get('name').errors['pattern'])">Name is not Valid</span>
+    </div>
+  </label>
+
+  <label>
+    Email Id:
+    <input type="text" formControlName="email" placeholder="Enter your email id">
+    <div *ngIf="frm.get('email').touched && frm.get('email').errors">
+      <span *ngIf="frm.get('email').errors['required']">Please enter your Email</span>
+      <span *ngIf="!frm.get('email').errors['required'] && frm.get('email').errors['email']">Given email is invalid</span>
+      <span *ngIf="frm.get('email').invalid && !frm.get('email').errors['required'] && !frm.get('email').errors['email']">Given email is invalid</span>
+    </div>
+  </label>
+
+  <label>
+      Mobile Number: 
+      <input type="text" placeholder="Enter your Mobile Number" formControlName="mobile">
+      <div *ngIf="frm.get('mobile').touched && frm.get('mobile').errors">
+          <span *ngIf="frm.get('mobile').errors['required']">Please enter your Mobile Number</span>
+          <span *ngIf="frm.get('mobile').invalid && !frm.get('mobile').errors['required']">Given mobile number is invalid</span>
+        </div>
+  </label>
+
+  <label>
+    Password:
+    <input [type]="show?'text':'password'" placeholder="Enter your password" formControlName="password"> <i (mouseenter)="showPass(true)" (mouseleave)="showPass(false)" class="fa fa-eye" aria-hidden="true"></i>
+    <div *ngIf="frm.get('password').touched && frm.get('password').errors">
+      <span *ngIf="frm.get('password').errors['required']">Password is required</span>
+      <span *ngIf="!frm.get('password').errors['required'] && frm.get('password').errors['minlength']">Minimum length of password should be 6 characters</span>
+      <span *ngIf="!frm.get('password').errors['required'] && frm.get('password').errors['maxlength']">Maximum length of password should be 15 characters</span>
+
+    </div>
+  </label>
+
+  <input type="submit" value="Submit" [disabled]="frm.invalid">
+
+  
+</form>
