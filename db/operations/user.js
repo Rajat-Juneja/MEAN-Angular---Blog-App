@@ -30,7 +30,7 @@ const dbOperations = {
                 console.log("INSIDE NOt FOUND",data.length);
                 if(data.length==0){
                     console.log("INSIDE CREATION");
-                schema.create(Obj,{new:true},(err,data)=>{
+                schema.create(Obj,(err,data)=>{
                     if(err){
                         callback(err,null);
                     }

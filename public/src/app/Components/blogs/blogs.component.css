@@ -1,0 +1,71 @@
+div.blog{
+    width:50%;
+    margin-top: 2.5%;
+}
+
+div.bimage, div.bimage2{
+    text-align: center;
+    width: 100%;
+    margin: 1% 0 2.5%;
+}
+
+div.bimage img{
+    width: 50%;
+}
+
+div.bimage2 img{
+    width:100%;
+}
+
+div.col-12.row .col-6{
+    text-align: center;
+}
+
+div.col-12.row .col-6 button{
+    border:1px solid transparent;
+    border-radius:15px;
+    padding: 3% 0%;
+    width: 150px !important;
+    cursor: pointer;
+    position: relative;
+    transition: 1s ease all;
+}
+
+span.hover{
+    position: absolute;
+    left: 92.5%;
+    padding: 0% 4%;
+    border-radius: 50%;
+    top: -10%;
+    background:cadetblue;
+    color: white;
+}
+
+button.liked{
+    background: rgb(230,230,230);
+    color: dodgerblue;
+    border:1px solid dodgerblue !important;
+}
+
+button.liked b, button.liked i{
+    animation: jump2 0.5s ease-in forwards;
+}
+
+@keyframes jump2{
+    0%{
+        transform: scale(1,1);
+    }
+    50%{
+        transform: scale(2,2);
+    }
+    100%{
+        transform: scale(1,1);
+    }
+}
+
+div.modal button{
+    border:1px solid transparent !important;
+    border-radius:5px !important;
+    padding: 1% 2.5% !important;
+    width: fit-content !important;
+}

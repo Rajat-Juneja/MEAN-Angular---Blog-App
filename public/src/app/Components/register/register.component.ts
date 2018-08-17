@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {FormGroup,FormControl,Validators} from '@angular/forms';
+import {User} from '../../Models/User';
+import {AjaxService} from '../../Services/ajax.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -8,9 +11,12 @@ import {FormGroup,FormControl,Validators} from '@angular/forms';
 })
 export class RegisterComponent implements OnInit {
   frm:FormGroup;
-  show:boolean;
-  constructor() {
-    this.show=false;
+  done:boolean;
+  Obj:User;
+  show:Boolean;
+
+  constructor(private service:AjaxService,private router:Router) {
+    this.done=this.show=false;
    }
 
   ngOnInit() {
@@ -23,7 +29,30 @@ export class RegisterComponent implements OnInit {
   }
 
   submitForm(){
-    console.log(this.frm.value);
+    console.log("Submit Called",this.frm.value);
+    this.Obj=this.frm.value;
+    var posting = this.service.addUser(this.Obj).subscribe(
+      (data)=>{
+      if(data.success==true){
+        this.done=true;
+        this.service.flag = "Successfully Registered";
+      }
+    },
+      (err)=>{
+        console.log("ERR",err)
+      },
+      ()=>{
+      console.log("COMPLETED");
+      posting.unsubscribe();
+      if(this.done){
+        this.router.navigate(['/'])
+      }
+      
+    })
+  }
+
+  openReg(){
+    this.router.navigate(['/']);
   }
 
   showPass(val){
