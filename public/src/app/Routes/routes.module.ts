@@ -6,8 +6,6 @@ import {LoginComponent} from '../Components/login/login.component';
 import { RegisterComponent } from '../Components/register/register.component';
 import { BlogsComponent } from '../Components/blogs/blogs.component';
 import { UserComponent } from '../Components/user/user.component';
-import { AddblogComponent } from '../Components/addblog/addblog.component';
-
 const routes = [
   {
     path:'start',
@@ -16,12 +14,7 @@ const routes = [
       {
       path:'blogs',
       component:BlogsComponent
-      },
-      {
-        path:'add',
-        component:AddblogComponent
-      }
-    ]
+      }    ]
   },
   {
     path:'',

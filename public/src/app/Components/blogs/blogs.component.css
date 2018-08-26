@@ -69,3 +69,21 @@ div.modal button{
     padding: 1% 2.5% !important;
     width: fit-content !important;
 }
+
+input.commentStyle{
+    width: 100%;
+    border-radius:5px;
+}
+
+div.closepar{
+    position: relative;
+    margin-bottom:15%;
+}
+
+div.closepar span.close{
+    position: absolute;
+    right: 2%;
+    cursor: pointer !important;
+    z-index: 1;
+    font-size: 18px;
+}

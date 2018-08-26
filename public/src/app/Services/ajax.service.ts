@@ -4,7 +4,7 @@ import {Observable} from 'rxjs';
 import {User} from '../Models/User';
 import {response,responseData} from '../Models/response';
 import {LoginUser} from '../Models/LoginUser';
-import {Blog, blogName, blogCom} from '../Models/blogs';
+import {Blog, blogName, blogCom, BlogType} from '../Models/blogs';
 
 
 
@@ -82,6 +82,45 @@ export class AjaxService {
       })
     };
     var url = 'http://localhost:5000/start/editBlogComm';
+    return this.ajaxCaller.post<Blog>(url,Obj,httpOptions);
+  }
+
+  removeComment(Obj:blogCom):Observable<Blog>{
+    var token = localStorage.getItem('token');
+    token = 'Bearer '+token;
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type':'application/json',
+        'Authorization':token
+      })
+    };
+    var url = 'http://localhost:5000/start/removeComm';
+    return this.ajaxCaller.post<Blog>(url,Obj,httpOptions);
+  }
+
+  removeBlog(Obj:Blog):Observable<Blog>{
+    var token = localStorage.getItem('token');
+    token = 'Bearer '+token;
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type':'application/json',
+        'Authorization':token
+      })
+    };
+    var url = 'http://localhost:5000/start/removeBlog';
+    return this.ajaxCaller.post<Blog>(url,Obj,httpOptions);
+  }
+
+  addBlog(Obj:BlogType):Observable<Blog>{
+    var token = localStorage.getItem('token');
+    token = 'Bearer '+token;
+    const httpOptions={
+      headers: new HttpHeaders({
+        'Content-type':'form-data',
+        'Authorization':token
+      })
+    };
+    var url = 'http://localhost:5000/start/addBlog';
     return this.ajaxCaller.post<Blog>(url,Obj,httpOptions);
   }
   

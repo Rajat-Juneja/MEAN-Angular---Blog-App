@@ -21,3 +21,9 @@ export class blogCom{
 
     }
 }
+
+export class BlogType{
+    constructor(public name:string, public desc: string,public image: string, public blogId:string, public userName:string){
+
+    }
+}

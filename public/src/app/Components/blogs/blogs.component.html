@@ -3,10 +3,15 @@
 </div>
 
 <div *ngIf="blogArrived" class="blog">
-  <div *ngFor="let item of blogs;let i=index" class="row">
+  <div *ngFor="let item of blogs;let i=index" class="row closepar">
+    <span *ngIf="currentUser==item.userName" class="close" (click)="removeBlog(item)"> <i class="fa fa-trash" style="cursor:pointer" aria-hidden="true"></i></span>
     <div class="col-12 col-sm-12">  
       <h4>{{item.userName}}</h4>
       <h6>{{item.time | date}}</h6>
+    </div>
+
+    <div class="col-12 col-sm-12" style="margin-top:2%">
+      <p style="margin-bottom:0;"><b>{{item.name}}</b></p>
     </div>
     <div class="col-12 col-sm-12 bimage2">
       <img src={{item.image}} alt={{item.name}}>
@@ -19,11 +24,10 @@
     <div class="col-12 col-sm-12 row">
       <div class="col-6 col-sm-6">
         <button [ngClass]="item.isLiked?'liked':null" (click)="like(item,item.isLiked)"><b>Like <i class="fa fa-thumbs-o-up" aria-hidden="true"></i></b> <span class="hover">{{item.likes}}</span></button>
-        
       </div>
 
       <div class="col-6 col-sm-6">
-        <button  data-toggle="modal" data-target="#exampleModal"><b>Comment <i class="fa fa-comments-o" aria-hidden="true"></i></b> <span class="hover">{{item.comments.length}}</span></button>  
+        <button  data-toggle="modal" data-target="#exampleModal" (click)="emptyFormArray();fillComment(item)"><b>Comment <i class="fa fa-comments-o" aria-hidden="true"></i></b> <span class="hover">{{item.comments.length}}</span></button>  
         <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
               <div class="modal-content">
@@ -35,20 +39,28 @@
                 </div>
                 <div class="modal-data" style="padding: 1% 2%">
                 <div *ngIf="item.comments.length>0">
-                <div *ngFor="let comment of item.comments" class="modal-body row" style="padding: 1% 0">
+                <div *ngFor="let comment of allComments" class="modal-body row" style="padding: 1% 0">
                   <div class="col-sm-4 col-4">  
                   <h6>{{comment.name}}</h6>  
                 </div>
-                <div class="col-sm-8 col-8" style="text-align: left">
+                <div class="col-sm-7 col-7" style="text-align: left">
                   <p>{{comment.comment}}</p>
+                </div>
+                <div class="col-1 col-sm-1" *ngIf="checkIdentity(comment)">
+                    <i class="fa fa-trash" style="cursor:pointer" (click)="removeComment(item.blogId,i,comment.comment)" aria-hidden="true"></i>
                 </div>
               <hr>
             </div>
-                <form [formGroup]="frm" novalidate class="col-12 col-sm-12">
+                <form [formGroup]="frm" novalidate>
                 <div formArrayName="comment">
                 
-                  <div *ngFor="let array of frm.get('comment').controls;let i=index">
-                    <input type="text" [formControlName]="i">
+                  <div *ngFor="let array of frm.get('comment').controls;let j=index"  class="row">
+                    <div class="col-sm-4 col-4">
+                      <h6>Add Comment : </h6>
+                    </div>
+                    <div class="col-sm-8 col-8">
+                    <input type="text" class="commentStyle" placeholder="Enter your comment" [formControlName]="j">
+                  </div>
                   </div>
                 
               </div>

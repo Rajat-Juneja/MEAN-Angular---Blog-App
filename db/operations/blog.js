@@ -22,6 +22,16 @@ const blogOperations = {
             }
         })
     },
+    removeBlog(id,callback){
+        schema.findOneAndRemove({"blogId":id},(err,data)=>{
+            if(err){
+                callback(err,null);
+            }
+            else{
+                callback(null,data);
+            }
+        })
+    },
     changeLikes(value,Obj,callback){
         schema.findByIdAndUpdate(Obj._id,{"$inc":{"likes":value}},{new:true},(err,data)=>{
             if(err){
@@ -64,6 +74,16 @@ const blogOperations = {
     },
     addComment(comment,id,callback){
         schema.findOneAndUpdate({"blogId":id},{"$push":{"comments":comment}},{new:true},(err,data)=>{
+            if(err){
+                callback(err,null);
+            }
+            else{
+                callback(null,data);
+            }
+        })
+    },
+    removeComment(comment,id,callback){
+        schema.findOneAndUpdate({"blogId":id},{"$pull":{"comments":comment}},{new:true},(err,data)=>{
             if(err){
                 callback(err,null);
             }

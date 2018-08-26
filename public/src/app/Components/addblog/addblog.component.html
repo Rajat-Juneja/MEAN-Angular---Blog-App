@@ -1,1 +1,45 @@
-<form [formGroup]="frm" novalidate (submit)="submitForm()"></form>
+<form [formGroup]="frm" novalidate encType="multipart/form-data">
+    
+    <input type="text" placeholder="Enter Post Heading" formControlName="name">
+    <div *ngIf="frm.get('name').touched && frm.get('name').errors">
+        <span *ngIf="frm.get('name').errors['required']">
+            Heading for the post is required
+        </span>
+        <span *ngIf="!frm.get('name').errors['required'] && frm.get('name').errors['minlength']">
+            Minimum length is 3 characters
+        </span>
+        <span *ngIf="frm.get('name').errors['maxlength'] && !frm.get('name').errors['required']">
+            Maximum length can be 100 characters
+        </span>
+    </div>
+
+
+    <textarea name="" placeholder="Enter Post Description" formControlName="desc" cols="30" rows="10"></textarea>
+    <div *ngIf="frm.get('desc').touched && frm.get('desc').errors">
+            <span *ngIf="frm.get('desc').errors['required']">
+                Description for the post is required
+            </span>
+            <span *ngIf="!frm.get('desc').errors['required'] && frm.get('desc').errors['minlength']">
+                Minimum length is 5 characters
+            </span>
+            <span *ngIf="frm.get('desc').errors['maxlength'] && !frm.get('desc').errors['required']">
+                Maximum length can be 500 characters
+            </span>
+    
+        </div>
+
+    <input type="file" name="myimage" id="" accept="image/*" formControlName="image" (change)="print($event)">
+<br>
+<button type="submit" (click)="submitForm()" [disabled]="frm.inavlid" [ngClass]="{'invalid':frm.invalid}">Submit</button>
+<br>
+
+    <div *ngIf="url.length>0" class="fixit">
+        <!-- <img src="{{url}}" alt=""> -->
+        <img [src]="getSantizeUrl(url)" class="fix" alt="">
+    </div>
+
+    <!-- <input type="submit" value="Submit" [disabled]="frm.inavlid"> -->
+    
+    <br>
+{{frm.value | json}}
+</form>

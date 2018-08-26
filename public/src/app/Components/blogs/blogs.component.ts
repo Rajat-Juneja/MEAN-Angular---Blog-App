@@ -14,7 +14,10 @@ export class BlogsComponent implements OnInit {
   blogArrived:boolean;
   liked:boolean;
   likedClass:boolean;
-  frm:FormGroup
+  frm:FormGroup;
+  currentUser:string;
+  currentItem:any;
+  allComments:[{name:string,comment:string}];
   constructor(private ajax:AjaxService) { 
     this.blogArrived=false;
     this.blogs=[];
@@ -51,7 +54,22 @@ export class BlogsComponent implements OnInit {
     });
   }
 
+  fillComment(item){
+    this.allComments=item.comments;
+    this.currentItem=item;
+  }
+
+  checkIdentity(comment){
+    if(this.currentUser==comment.name || this.currentUser==this.currentItem.userName){
+      return true;
+    }
+    else{
+      return false;
+    }
+  }
+
   ngOnInit() {
+    this.currentUser=localStorage.getItem('user');
     var blogged = this.ajax.loadblogs().subscribe(
       (data)=>{
         if(data['success']){
@@ -88,7 +106,7 @@ export class BlogsComponent implements OnInit {
 
   addComment(id,i){
     // console.log(this.frm.get('comment').value);
-    console.log("BLOG ID IS",id);
+    // console.log("BLOG ID IS",id);
     for(let i=0;i<this.frm.get('comment').value.length;i++){
       if(this.frm.get('comment').value[i]==''){
         continue;
@@ -118,10 +136,50 @@ export class BlogsComponent implements OnInit {
   }
   }
 
+  removeComment(id,i,comment){
+    var comments = {'name':localStorage.getItem('user'),'comment':comment};
+    var Obj={'blogId':id,'comment':comments};
+    var removal = this.ajax.removeComment(Obj).subscribe(
+      (data)=>{
+        console.log("DATA is",data);
+        this.blogs[i]=data.data;
+        while((<FormArray>this.frm.get('comment')).length!=0){
+          (<FormArray>this.frm.get('comment')).removeAt(0);
+        }
+      },
+      (err)=>{
+        console.log("Err is",err);
+      },
+      ()=>{
+        console.log("COMpleted");
+        removal.unsubscribe();
+      }
+    )
+  }
+
   emptyFormArray(){
     while((<FormArray>this.frm.get('comment')).length!=0){
       (<FormArray>this.frm.get('comment')).removeAt(0);
     }
+  }
+
+  printComm(com){
+    console.log(com);
+  }
+
+  removeBlog(obj){
+    var removeblog = this.ajax.removeBlog(obj).subscribe(
+      (data)=>{
+        console.log("DATA IS",data);
+      },
+      (err)=>{
+        console.log("err is",err);
+      },
+      ()=>{
+        console.log("Complete");
+        removeblog.unsubscribe();
+      }
+  )
   }
 
 

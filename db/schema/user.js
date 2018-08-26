@@ -2,16 +2,20 @@ const mongoose = require('../config/connect');
 const userSchema = mongoose.Schema;
 var user = new userSchema({
     name:{
-        type:String
+        type:String,
+        required:true
     },
     email:{
-        type:String
+        type:String,
+        required:true
     },
     mobile:{
-        type:String
+        type:String,
+        required:true
     },
     password:{
-        type:String
+        type:String,
+        required:true
     }
 });
 
